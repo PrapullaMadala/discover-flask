@@ -7,7 +7,7 @@ from functools import wraps
 # create the application object
 app = Flask(__name__)
 app.secret_key = 'development key'
-app.database = 'sample.db'
+app.database = 'smple.db'
 
 
 # login required decorator
@@ -25,12 +25,18 @@ def login_required(f):
 @app.route('/')
 @login_required
 def home():
-    g.db = connect_db()
-    cur = g.db.execute('select * from posts')
     posts = []
-    for row in cur.fetchall():
-        posts.append(dict(title=row[0], description=row[1]))
-    g.db.close()
+    try:
+        g.db = connect_db()
+        cur = g.db.execute('select * from posts')
+        
+        for row in cur.fetchall():
+            posts.append(dict(title=row[0], description=row[1]))
+        g.db.close()
+    except sqlite3.OperationalError:
+        flash('You have no database!')
+    
+    
     return render_template("index.html", posts=posts) # render a template
 
 @app.route('/welcome')
