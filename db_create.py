@@ -5,8 +5,10 @@ from models import BlogPost
 db.create_all()
 
 # insert
-db.session.add(BlogPost("Bad", "I\'m bad."))
-db.session.add(BlogPost("Mad", "I\'m mad."))
+db.session.add(BlogPost("Good", "I\'m good."))
+db.session.add(BlogPost("Well", "I\'m well."))
+db.session.add(BlogPost("Flask", "discover_flask_dev"))
+db.session.add(BlogPost("postgres", "set up local postgres"))
 
 # commit the changes
 db.session.commit()
