@@ -1,4 +1,3 @@
-# import sqlite3
 # import the Flask class from the flask module
 from flask import Flask, render_template, request, redirect, url_for, session, flash, g
 from forms import LoginForm
@@ -8,10 +7,6 @@ from flask_sqlalchemy import SQLAlchemy
 
 # create the application object
 app = Flask(__name__)
-# app.secret_key = 'development key'
-# app.database = 'smple.db'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # config
 import os
@@ -65,8 +60,6 @@ def logout():
     flash('You were just logged out!')
     return redirect(url_for('welcome'))
 
-# def connect_db():
-#  return sqlite3.connect(app.database)    
 
 # start the server with the 'run()' method  
 if __name__ == '__main__':
