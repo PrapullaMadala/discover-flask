@@ -1,22 +1,24 @@
-# import the Flask class from the flask module
+# imports
+import os
 from flask import Flask, render_template, request, redirect, url_for, session, flash, g
 from forms import LoginForm
 from functools import wraps
-# from flask_sqlalchemy.model import Model
+from flask_bcrypt import Bcrypt
 from flask_sqlalchemy import SQLAlchemy
 
-# create the application object
-app = Flask(__name__)
 
 # config
-import os
+app = Flask(__name__)
 app.config.from_object(os.environ['APP_SETTINGS'])
 
 # create sqlalchemy object
 db = SQLAlchemy(app)
 
 from models import *
+from project.users.views import users_blueprint
 
+# register our blueprints
+app.register_blueprint(users_blueprint)
 
 # login required decorator
 def login_required(f):
