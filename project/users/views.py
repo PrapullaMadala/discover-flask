@@ -5,21 +5,22 @@
 from flask import flash, redirect, render_template, request, \
     url_for, Blueprint, session  # pragma: no cover
 from functools import wraps
-from app import app
-from flask_bcrypt import Bcrypt
 from .forms import LoginForm  # pragma: no cover
 
 ################
 #### config ####
 ################
-bcrypt = Bcrypt(app)
 
 users_blueprint = Blueprint(
     'users', __name__,
     template_folder='templates'
 )   # pragma: no cover
 
+########################
+### helper functions ###
+########################
 # login required decorator
+
 def login_required(test):
     @wraps(test)
     def wrap(*args, **kwargs):
@@ -44,7 +45,7 @@ def login():
         else:
             session['logged_in'] = True
             flash('You were just logged in!')
-            return redirect(url_for('home'))                
+            return redirect(url_for('home.home'))                
     return render_template('login.html', error = error, form = form)
 
 
@@ -52,4 +53,4 @@ def login():
 def logout():
     session.pop('logged_in', None)
     flash('You were just logged out!')
-    return redirect(url_for('welcome'))
+    return redirect(url_for('home.welcome'))

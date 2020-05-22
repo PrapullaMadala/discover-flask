@@ -2,7 +2,7 @@
 
 import unittest
 
-from app import app
+from project import app
 
 
 class FlaskTestCase(unittest.TestCase):
